@@ -20,3 +20,7 @@
 
 ;; Set up the visible bell
 (setq visible-bell t)
+
+;; ** Font
+;; *** Set the font
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
