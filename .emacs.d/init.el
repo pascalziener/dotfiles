@@ -5,6 +5,26 @@
 ;; ...and inspired by several other sources
 
 ;; * General Configuration
+;; ** Package Management
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("org" . "https://orgmode.org/elpa/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialze use-package on non-linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+
 ;; ** User Interface
 ;; Clean up Emacs' user interface, make it more minimal.
 
@@ -28,3 +48,4 @@
 ;; ** Theme
 ;; *** Set a theme
 (load-theme 'tango-dark)
+
