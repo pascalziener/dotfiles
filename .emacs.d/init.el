@@ -24,3 +24,7 @@
 ;; ** Font
 ;; *** Set the font
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
+
+;; ** Theme
+;; *** Set a theme
+(load-theme 'tango-dark)
