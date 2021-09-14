@@ -6,6 +6,7 @@
 
 ;; * General Configuration
 ;; ** Package Management
+
 ;; Initialize package sources
 (require 'package)
 
@@ -18,30 +19,43 @@
   (package-refresh-contents))
 
 ;; Initialze use-package on non-linux platforms
+;; https://github.com/jwiegley/use-package
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
 (require 'use-package)
-(setq use-package-always-ensure t)
+(setq use-package-always-ensure t) ; install packages automatically if not already present on the system
 
 ;; Use Ivy for completions
 (use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
+    :diminish ;(ivy-mode . "")
+;;  :bind (("C-s" . swiper)
+;;	 :map ivy-minibuffer-map
+;;	 ("TAB" . ivy-alt-done)
+;;	 ("C-l" . ivy-alt-done)
+;;	 ("C-j" . ivy-next-line)
+;;	 ("C-k" . ivy-previous-line)
+;;	 :map ivy-switch-buffer-map
+;;	 ("C-k" . ivy-previous-line)
+;;	 ("C-l" . ivy-done)
+;;	 ("C-d" . ivy-switch-buffer-kill)
+;;	 :map ivy-reverse-i-search-map
+;;	 ("C-k" . ivy-previous-line)
+;;	 ("C-d" . ivy-reverse-i-search-kill))
   :config
-  (ivy-mode 1))
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t  ; Add recent files and bookmarks to the ivy-switch-buffer
+	ivy-count-format "%d/%d " ; Displays the current and total number in the collection in the prompt
+	ivy-wrap t)) ;ivy-next-line and ivy-previous-line will cycle past the last and the first candidates respectively. 
+
+;; Use Counsel to override basic Emacs commands 
+(use-package counsel
+  :bind
+  (("M-x"   . counsel-M-x)
+   ("C-s"   . swiper)
+   ("C-x C-f" . counsel-find-file))
+  :config
+  (setq ivy-initial-inputs-alist nil)) ; Don't start searches with ^
 
 
 ;; ** User Interface
@@ -51,7 +65,7 @@
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)   ; Disable visible scrollbar
-(tool-bar-mode -1)     ; Disable the toolbar
+(tool-bar-mode -1)     ; Disable the toolba
 (tooltip-mode -1)      ; Disable tooltips
 (set-fringe-mode 10)   ; Give some breathing room
 ;; Keep the menu enabled for now
@@ -69,17 +83,7 @@
 
 ;; ** Theme
 ;; *** Set a theme
-(load-theme 'tango-dark)
+;;(load-theme 'tango-dark)
+(load-theme 'wombat)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(ivy use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
