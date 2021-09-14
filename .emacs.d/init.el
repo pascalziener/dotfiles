@@ -77,6 +77,21 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; all-the-icons is required for doom-modeline to show beautiful icons
+(use-package all-the-icons)
+
+;; first time you need to run
+;; M-x all-the-icons-install-font
+;; On Windows 10 it is necessary to install the fonts manually afterwards
+;; https://www.hackercitizen.com/emacs-for-windows-10-install-all-the-icons/
+;; https://github.com/domtronn/all-the-icons.el
+
+;; Use doom-modeline for a more minimal experience
+;; https://github.com/seagle0128/doom-modeline
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1)) 
+
 ;; ** Font
 ;; *** Set the font
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
@@ -85,5 +100,3 @@
 ;; *** Set a theme
 ;;(load-theme 'tango-dark)
 (load-theme 'wombat)
-
-
