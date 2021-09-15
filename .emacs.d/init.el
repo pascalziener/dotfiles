@@ -71,6 +71,20 @@
 ;; Keep the menu enabled for now
 ;;(menu-bar-mode -1)     ; Disable the menu bar
 
+;; Enable line numbers globally
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+;;(dolist (mode '(org-mode-hook
+;;                term-mode-hook
+;;                shell-mode-hook
+;;                treemacs-mode-hook
+;;                eshell-mode-hook))
+;;;  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; Add current column to the modeline
+(column-number-mode)
+
 ;; Set up the visible bell
 (setq visible-bell t)
 
@@ -90,7 +104,19 @@
 ;; https://github.com/seagle0128/doom-modeline
 (use-package doom-modeline
   :init
-  (doom-modeline-mode 1)) 
+  (doom-modeline-mode 1))
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; which-key
+;; https://github.com/justbur/emacs-which-key
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.5))
 
 ;; ** Font
 ;; *** Set the font
