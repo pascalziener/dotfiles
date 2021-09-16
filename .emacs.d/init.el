@@ -57,6 +57,11 @@
   :config
   (setq ivy-initial-inputs-alist nil)) ; Don't start searches with ^
 
+;; Use ivy-rich to add some information to ivy buffers
+(use-package ivy-rich
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
 
 ;; ** User Interface
 ;; Clean up Emacs' user interface, make it more minimal.
