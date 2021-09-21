@@ -64,21 +64,9 @@
   :init
   (ivy-rich-mode 1))
 
-;; ** User Interface
-;; Clean up Emacs' user interface, make it more minimal.
 
-;; Disable startup message
-(setq inhibit-startup-message t)
 
-(scroll-bar-mode -1)   ; Disable visible scrollbar
-(tool-bar-mode -1)     ; Disable the toolba
-(tooltip-mode -1)      ; Disable tooltips
-(set-fringe-mode 10)   ; Give some breathing room
-;; Keep the menu enabled for now
-;;(menu-bar-mode -1)     ; Disable the menu bar
 
-;; Enable line numbers globally
-(global-display-line-numbers-mode t)
 
 ;; Disable line numbers for some modes
 ;;(dolist (mode '(org-mode-hook
@@ -88,11 +76,9 @@
 ;;                eshell-mode-hook))
 ;;;  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-;; Add current column to the modeline
-(column-number-mode)
 
-;; Set up the visible bell
-(setq visible-bell t)
+
+
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -130,8 +116,7 @@
 
 ;; ** Theme
 ;; *** Set a theme
-;;(load-theme 'tango-dark)
-(load-theme 'wombat)
+;;(load-theme 'wombat)
 
 ;; Doom Themes
 ;; https://github.com/hlissner/emacs-doom-themes
@@ -142,3 +127,39 @@
   (doom-themes-visual-bell-config)
   ;; Corrects (and improves) org-mode's native fontification
   (doom-themes-org-config))
+
+;; Disable startup message
+(setq inhibit-startup-message t)
+(scroll-bar-mode -1)   ; Disable visible scrollbar
+(tool-bar-mode -1)     ; Disable the toolba
+(tooltip-mode -1)      ; Disable tooltips
+(set-fringe-mode 10)   ; Give some breathing room
+;; Keep the menu enabled for now
+;;(menu-bar-mode -1)     ; Disable the menu bar
+
+;; Set up the visible bell
+(setq visible-bell t)
+
+;; Enable line numbers globally
+(global-display-line-numbers-mode t)
+
+;; Add current column to the modeline
+(column-number-mode)
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)))
+
+(setq org-confirm-babel-evaluate nil)
+
+;; This is need as of Org 9.2
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+;;(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+;;(add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
+;;(add-to-list 'org-structure-template-alist '("py" . "src python"))
+;;(add-to-list 'org-structure-template-alist '("go" . "src go"))
+;;(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+;;(add-to-list 'org-structure-template-alist '("json" . "src json"))
