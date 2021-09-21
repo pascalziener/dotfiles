@@ -10,26 +10,7 @@
   ;; ...and inspired by several other sources
 
   ;; * General Configuration
-  ;; ** Package Management
-
-  ;; Initialize package sources
-  (require 'package)
-
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			   ("org" . "https://orgmode.org/elpa/")
-			   ("elpa" . "https://elpa.gnu.org/packages/")))
-
-  (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents))
-
-  ;; Initialze use-package on non-linux platforms
-  ;; https://github.com/jwiegley/use-package
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
-
-  (require 'use-package)
-  (setq use-package-always-ensure t) ; install packages automatically if not already present on the system
+ 
 
   ;; Use Ivy for completions
   (use-package ivy
@@ -138,7 +119,29 @@
   In this document I've added links in many places that lead you to documentation for the
   various packages I use. If you're looking at this file in Emacs, you can put your cursor
   on a link and press =C-c C-o= or run =M-x org-open-at-point= to open the link in your web browser.
+* Package Management
+  Set up ELPA, MELPA, and Org package repositories and load use-package to manage package configuration.
+  #+begin_src emacs-lisp
+     ;; Initialize package sources
+     (require 'package)
 
+     (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			      ("org" . "https://orgmode.org/elpa/")
+			      ("elpa" . "https://elpa.gnu.org/packages/")))
+
+     (package-initialize)
+     (unless package-archive-contents
+       (package-refresh-contents))
+
+     ;; Initialze use-package on non-linux platforms
+     ;; https://github.com/jwiegley/use-package
+     (unless (package-installed-p 'use-package)
+       (package-install 'use-package))
+
+     (require 'use-package)
+     (setq use-package-always-ensure t) ; install packages automatically if not already present on the system
+  #+end_src
+  
 * General Configuration
 ** User Interface
    Clean up Emacs' user interface, make it more minimal
@@ -167,6 +170,10 @@
 
   Enable CUA mode to use the use =C-x=, =C-c=, =C-v=, and =C-z= to invoke
   commands that cut(kill), copy, paste (yank), and undo respectively.
+
+  https://www.emacswiki.org/emacs/CuaMode
+  https://www.gnu.org/software/emacs/manual/html_node/emacs/CUA-Bindings.html
+  
   #+begin_src emacs-lisp
     (cua-mode t)
   #+end_src

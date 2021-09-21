@@ -5,26 +5,7 @@
 ;; ...and inspired by several other sources
 
 ;; * General Configuration
-;; ** Package Management
 
-;; Initialize package sources
-(require 'package)
-
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;; Initialze use-package on non-linux platforms
-;; https://github.com/jwiegley/use-package
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t) ; install packages automatically if not already present on the system
 
 ;; Use Ivy for completions
 (use-package ivy
@@ -128,6 +109,25 @@
   ;; Corrects (and improves) org-mode's native fontification
   (doom-themes-org-config))
 
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("org" . "https://orgmode.org/elpa/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialze use-package on non-linux platforms
+;; https://github.com/jwiegley/use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t) ; install packages automatically if not already present on the system
+
 ;; Disable startup message
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)   ; Disable visible scrollbar
@@ -145,6 +145,8 @@
 
 ;; Add current column to the modeline
 (column-number-mode)
+
+(cua-mode t)
 
 (org-babel-do-load-languages
   'org-babel-load-languages
