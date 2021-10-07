@@ -1,3 +1,73 @@
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialze use-package on non-linux platforms
+;; https://github.com/jwiegley/use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t) ; install packages automatically if not already present on the system
+
+;; Disable startup message
+(setq inhibit-startup-message t)
+(scroll-bar-mode -1)   ; Disable visible scrollbar
+(tool-bar-mode -1)     ; Disable the toolba
+(tooltip-mode -1)      ; Disable tooltips
+(set-fringe-mode 10)   ; Give some breathing room
+;; Keep the menu enabled for now
+;;(menu-bar-mode -1)     ; Disable the menu bar
+
+;; Set up the visible bell
+(setq visible-bell t)
+
+;; Enable line numbers globally
+(global-display-line-numbers-mode t)
+
+;; Add current column to the modeline
+(column-number-mode)
+
+(cua-mode t)
+
+(defun pzi/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 0)
+  (auto-fill-mode 0)
+  (visual-line-mode))
+
+(use-package org
+  :ensure t
+  :hook
+  (org-mode . pzi/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"))
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)))
+
+(setq org-confirm-babel-evaluate nil)
+
+;; This is need as of Org 9.2
+(require 'org-tempo)
+
+;; add Structured Templates
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+;;(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+;;(add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
+;;(add-to-list 'org-structure-template-alist '("py" . "src python"))
+;;(add-to-list 'org-structure-template-alist '("go" . "src go"))
+;;(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+;;(add-to-list 'org-structure-template-alist '("json" . "src json"))
+
 ;; PZI Emacs Config
 ;; Build with the help of Emacs From Scratch series by System Crafters
 ;; https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ
@@ -34,7 +104,8 @@
   :bind
   (("M-x"   . counsel-M-x)
    ("C-s"   . swiper)
-   ("C-x C-f" . counsel-find-file))
+   ("C-x C-f" . counsel-find-file)
+   ("C-M-j" . counsel-switch-buffer))
   :config
   (setq ivy-initial-inputs-alist nil)) ; Don't start searches with ^
 
@@ -108,60 +179,3 @@
   (doom-themes-visual-bell-config)
   ;; Corrects (and improves) org-mode's native fontification
   (doom-themes-org-config))
-
-;; Initialize package sources
-(require 'package)
-
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;; Initialze use-package on non-linux platforms
-;; https://github.com/jwiegley/use-package
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t) ; install packages automatically if not already present on the system
-
-;; Disable startup message
-(setq inhibit-startup-message t)
-(scroll-bar-mode -1)   ; Disable visible scrollbar
-(tool-bar-mode -1)     ; Disable the toolba
-(tooltip-mode -1)      ; Disable tooltips
-(set-fringe-mode 10)   ; Give some breathing room
-;; Keep the menu enabled for now
-;;(menu-bar-mode -1)     ; Disable the menu bar
-
-;; Set up the visible bell
-(setq visible-bell t)
-
-;; Enable line numbers globally
-(global-display-line-numbers-mode t)
-
-;; Add current column to the modeline
-(column-number-mode)
-
-(cua-mode t)
-
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)))
-
-(setq org-confirm-babel-evaluate nil)
-
-;; This is need as of Org 9.2
-(require 'org-tempo)
-
-(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-;;(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
-;;(add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
-;;(add-to-list 'org-structure-template-alist '("py" . "src python"))
-;;(add-to-list 'org-structure-template-alist '("go" . "src go"))
-;;(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
-;;(add-to-list 'org-structure-template-alist '("json" . "src json"))
