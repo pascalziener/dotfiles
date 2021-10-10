@@ -54,3 +54,6 @@
 ;; they are implemented.
 
 (setq doom-font (font-spec :family "Fira Code Retina " :size 14))
+
+(add-to-list 'default-frame-alist '(height . 48))
+(add-to-list 'default-frame-alist '(width . 160))

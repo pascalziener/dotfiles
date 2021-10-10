@@ -4,6 +4,8 @@
 
 * Table of contents
 * References
+https://github.com/tecosaur/emacs-config/blob/master/config.org
+
 * Doom config file overview
 ** Config file headers
 The standard header from Doom Emacs' config.el
@@ -65,9 +67,17 @@ The standard header from Doom Emacs' config.el
 ;; they are implemented.
 #+end_src
 
-* Fonts
+* My defaults
+
+** Fonts
 Settings related to fonts within Doom Emacs
 Set base and variable-pitch fonts.
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "Fira Code Retina " :size 14))
+#+end_src
+
+** Frame sizing
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(height . 48))
+(add-to-list 'default-frame-alist '(width . 160))
 #+end_src
